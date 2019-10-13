@@ -11,8 +11,8 @@ namespace Guides.Data.Version1
 			this.WithRequiredProperty("name"			, TypeCode.String);
 			this.WithOptionalProperty("type"			, TypeCode.String);
 			this.WithOptionalProperty("app"				, TypeCode.String);
-			this.WithOptionalProperty("min_ver"			, TypeCode.Integer);
-			this.WithOptionalProperty("max_ver"			, TypeCode.Integer);
+			this.WithOptionalProperty("min_ver"			, TypeCode.Long);
+			this.WithOptionalProperty("max_ver"			, TypeCode.Long);
 			this.WithOptionalProperty("create_time"		, TypeCode.DateTime);
 			this.WithOptionalProperty("pages"			, null);
 			this.WithOptionalProperty("tags"			, null);

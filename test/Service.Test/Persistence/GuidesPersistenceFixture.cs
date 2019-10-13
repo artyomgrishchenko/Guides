@@ -11,8 +11,8 @@ namespace Guides.Persistence
     {
 		private GuidePageV1 GUIDEPAGE1 = new GuidePageV1
 		{
-			Title = new Dictionary<string, string>() { { "Page1.Title1", "Some in title1" }, { "Page1.Title2", "Some in title2" } },
-			Content = new Dictionary<string, string>() { { "Page1.Content1", "Some in content1" }, { "Page1.Content2", "Some in content2" } },
+			Title = new Dictionary<string, string>() { { "Page1Title1", "Some in title1" }, { "Page1Title2", "Some in title2" } },
+			Content = new Dictionary<string, string>() { { "Page1Content1", "Some in content1" }, { "Page1Content2", "Some in content2" } },
 			Color = "yellow",
 			PicId = "1",
 			PicUri = "000001"
@@ -20,8 +20,8 @@ namespace Guides.Persistence
 
 		private GuidePageV1 GUIDEPAGE2 = new GuidePageV1
 		{
-			Title = new Dictionary<string, string>() { { "Page2.Title1", "Some in title1" }, { "Page2.Title2", "Some in title2" } },
-			Content = new Dictionary<string, string>() { { "Page2.Content1", "Some in content1" }, { "Page2.Content2", "Some in content2" } },
+			Title = new Dictionary<string, string>() { { "Page2Title1", "Some in title1" }, { "Page2Title2", "Some in title2" } },
+			Content = new Dictionary<string, string>() { { "Page2Content1", "Some in content1" }, { "Page2Content2", "Some in content2" } },
 			Color = "blue",
 			PicId = "2",
 			PicUri = "000002"
@@ -110,12 +110,12 @@ namespace Guides.Persistence
 			guide = await _persistence.CreateAsync(null, GUIDE3);
 
 			Assert.NotNull(guide);
-			Assert.Equal(GUIDE2.App, guide.App);
-			Assert.Equal(GUIDE2.Max_ver, guide.Max_ver);
-			Assert.Equal(GUIDE2.Min_ver, guide.Min_ver);
-			Assert.Equal(GUIDE2.Name, guide.Name);
-			Assert.Equal(GUIDE2.Status, guide.Status);
-			Assert.Equal(GUIDE2.Type, guide.Type);
+			Assert.Equal(GUIDE3.App, guide.App);
+			Assert.Equal(GUIDE3.Max_ver, guide.Max_ver);
+			Assert.Equal(GUIDE3.Min_ver, guide.Min_ver);
+			Assert.Equal(GUIDE3.Name, guide.Name);
+			Assert.Equal(GUIDE3.Status, guide.Status);
+			Assert.Equal(GUIDE3.Type, guide.Type);
 
 			Assert.Null(guide.Pages);
 			Assert.NotNull(guide.Tags);

@@ -12,8 +12,8 @@ namespace Guides.Data.Version1
 		[DataMember(Name = "name")] public string Name { get; set; }
 		[DataMember(Name = "type")] public string Type { get; set; }
 		[DataMember(Name = "app ")] public string App { get; set; }
-		[DataMember(Name = "min_ver")] public int? Min_ver { get; set; }
-		[DataMember(Name = "max_ver")] public int? Max_ver { get; set; }
+		[DataMember(Name = "min_ver")] public long? Min_ver { get; set; }
+		[DataMember(Name = "max_ver")] public long? Max_ver { get; set; }
 		// Automatically managed fields
 		[DataMember(Name = "create_time")] public DateTime CreateTime { get; set; }
 		// Content 

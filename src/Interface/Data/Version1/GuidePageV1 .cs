@@ -1,15 +1,17 @@
 ﻿
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Guides.Data.Version1
 {
-    public class GuidePageV1
+	[DataContract]
+	public class GuidePageV1
 	{
-		public Dictionary<string, string> Title;
-		public Dictionary<string, string> Content;
-		public string MoreUrl;
-		public string Color;
-		public string PicId;
-		public string PicUri;	
-    }
+		[DataMember(Name = "title")] public Dictionary<string, string> Title { get; set; }
+		[DataMember(Name = "content")] public Dictionary<string, string> Content { get; set; }
+		[DataMember(Name = "moreUrl")] public string MoreUrl	{ get; set; }
+		[DataMember(Name = "color")] public string Color		{ get; set; }
+		[DataMember(Name = "picId")] public string PicId		{ get; set; }
+		[DataMember(Name = "picUri")] public string PicUri		{ get; set; }
+	}
 }
