@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Guides</RootNamespace>
+    <AssemblyName>Guides</AssemblyName>
+    <ApplicationIcon />
+    <Win32Resource />
+    <Version>1.0.0</Version>
+    <Authors>Artem Hryshchenko</Authors>
+    <Copyright>Conceptual Vision Consulting LLC 2018</Copyright>
+    <Description>Guides microservice client</Description>
+    <Company>Conceptual Vision Consulting LLC</Company>
+    <Product>Guides</Product>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/pip-services/pip-services</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/pip-services/pip-services/design/Logo.png</PackageIconUrl>
+    <PackageTags>microservices guides</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PipServices3.Commons" Version="3.0.6" />
+  </ItemGroup>
+
+</Project>
