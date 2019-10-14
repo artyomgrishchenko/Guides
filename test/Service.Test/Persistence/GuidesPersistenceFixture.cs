@@ -38,7 +38,8 @@ namespace Guides.Persistence
 			Tags = new List<string> { "tag1", "tag2", "tag3" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "active",
-		};
+			CreateTime = DateTime.UtcNow,
+	};
 		private GuideV1 GUIDE2 = new GuideV1
 		{
 			Id = "2",
@@ -50,6 +51,7 @@ namespace Guides.Persistence
 			Tags = new List<string> { "tag1", "tag2", "tag3" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "new",
+			CreateTime = DateTime.UtcNow,
 		};
 		private GuideV1 GUIDE3 = new GuideV1
 		{
@@ -62,6 +64,7 @@ namespace Guides.Persistence
 			Tags = new List<string> { "tag1", "tag2", "tag3" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "new",
+			CreateTime = DateTime.UtcNow,
 		};
 
 

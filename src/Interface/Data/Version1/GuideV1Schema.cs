@@ -14,9 +14,9 @@ namespace Guides.Data.Version1
 			this.WithOptionalProperty("min_ver"			, TypeCode.Long);
 			this.WithOptionalProperty("max_ver"			, TypeCode.Long);
 			this.WithOptionalProperty("create_time"		, TypeCode.DateTime);
-			this.WithOptionalProperty("pages"			, null);
-			this.WithOptionalProperty("tags"			, null);
-			this.WithOptionalProperty("all_tags"        , null);
+			this.WithOptionalProperty("pages"			, new ArraySchema(new GuidePageV1Schema()));
+			this.WithOptionalProperty("tags"			, TypeCode.Array);
+			this.WithOptionalProperty("all_tags"        , TypeCode.Array);
 			this.WithOptionalProperty("status"			, TypeCode.String);
 			this.WithOptionalProperty("custom_hdr"		, TypeCode.Object);
 			this.WithOptionalProperty("custom_dat"		, TypeCode.Object);

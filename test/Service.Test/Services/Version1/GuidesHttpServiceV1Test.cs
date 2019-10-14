@@ -11,6 +11,7 @@ using Guides.Logic;
 using Guides.Data.Version1;
 using System.Threading;
 using System.Collections.Generic;
+using System;
 
 namespace Guides.Services.Version1
 {
@@ -45,6 +46,7 @@ namespace Guides.Services.Version1
 			Tags = new List<string> { "tag1", "tag2", "tag3" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "active",
+			CreateTime = DateTime.UtcNow,
 		};
 		private GuideV1 GUIDE2 = new GuideV1
 		{
@@ -57,6 +59,7 @@ namespace Guides.Services.Version1
 			Tags = new List<string> { "tag1", "tag2", "tag3" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "new",
+			CreateTime = DateTime.UtcNow,
 		};
 
 		private static readonly ConfigParams HttpConfig = ConfigParams.FromTuples(
