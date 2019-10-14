@@ -6,6 +6,7 @@ using Guides.Persistence;
 using System.Threading.Tasks;
 using Guides.Data.Version1;
 using Guides.Logic;
+using System;
 
 namespace Guides.Logic
 {
@@ -48,6 +49,7 @@ namespace Guides.Logic
         {
             guide.Id = guide.Id ?? IdGenerator.NextLong();
             guide.Type = guide.Type ?? GuideTypeV1.NewRelease;
+			guide.CreateTime = DateTime.UtcNow;
 
             return await _persistence.CreateAsync(correlationId, guide);
         }
