@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
     <ReleaseVersion>1.0.0</ReleaseVersion>
-    <RootNamespace>Guides</RootNamespace>
-    <AssemblyName>Guides.Client.Test</AssemblyName>
+    <RootNamespace>Wexxle.Guide</RootNamespace>
+    <AssemblyName>Wexxle.Guide.Client.Test</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Client\Wexxle.Guide.Client.csproj" />
+    <ProjectReference Include="..\..\src\Client\Client.csproj" />
     <ProjectReference Include="..\Service.Test\Service.Test.csproj" />
   </ItemGroup>
 

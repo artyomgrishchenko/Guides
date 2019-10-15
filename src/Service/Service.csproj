@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Guides</RootNamespace>
-    <AssemblyName>Guides.Service</AssemblyName>
+    <RootNamespace>Wexxle.Guide</RootNamespace>
+    <AssemblyName>Wexxle.Guide.Service</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\Wexxle.Guide.Client.csproj" />
-    <ProjectReference Include="..\Interface\Wexxle.Guide.Interface.csproj" />
+    <ProjectReference Include="..\Client\Client.csproj" />
+    <ProjectReference Include="..\Interface\Interface.csproj" />
   </ItemGroup>
 
   <ItemGroup>

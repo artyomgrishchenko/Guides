@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
-    <RootNamespace>Guides</RootNamespace>
-    <AssemblyName>Guides.Service.Test</AssemblyName>
+    <RootNamespace>Wexxle.Guide</RootNamespace>
+    <AssemblyName>Wexxle.Guide.Service.Test</AssemblyName>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Interface\Wexxle.Guide.Interface.csproj" />
-    <ProjectReference Include="..\..\src\Service\Wexxle.Guide.Service.csproj" />
+    <ProjectReference Include="..\..\src\Interface\Interface.csproj" />
+    <ProjectReference Include="..\..\src\Service\Service.csproj" />
   </ItemGroup>
 </Project>
