@@ -77,7 +77,7 @@ namespace Guides.Persistence
 
             Assert.Single(page.Data);
 
-            // Filter by udi
+            // Filter by name
             page = await _persistence.GetPageByFilterAsync(
                 null,
                 FilterParams.FromTuples(
@@ -88,7 +88,7 @@ namespace Guides.Persistence
 
             Assert.Single(page.Data);
 
-            // Filter by udis
+            // Filter by tag
             page = await _persistence.GetPageByFilterAsync(
                 null,
                 FilterParams.FromTuples(
@@ -99,8 +99,30 @@ namespace Guides.Persistence
 
             Assert.Equal(3, page.Data.Count);
 
-            // Filter by site_id
-            page = await _persistence.GetPageByFilterAsync(
+			// Filter by tag
+			page = await _persistence.GetPageByFilterAsync(
+				null,
+				FilterParams.FromTuples(
+					"tag", "tag4"
+				),
+				new PagingParams()
+			);
+
+			Assert.Equal(2, page.Data.Count);
+
+			// Filter by tag
+			page = await _persistence.GetPageByFilterAsync(
+				null,
+				FilterParams.FromTuples(
+					"tag", "tag5"
+				),
+				new PagingParams()
+			);
+
+			Assert.Single(page.Data);
+
+			// Filter by type
+			page = await _persistence.GetPageByFilterAsync(
                 null,
                 FilterParams.FromTuples(
                     "type", "introduction"
@@ -109,6 +131,43 @@ namespace Guides.Persistence
             );
 
             Assert.Equal(2, page.Data.Count);
-        }
-    }
+
+			// Filter by app
+			page = await _persistence.GetPageByFilterAsync(
+				null,
+				FilterParams.FromTuples(
+					"app", "App2"
+				),
+				new PagingParams()
+			);
+
+			Assert.Single(page.Data);
+
+			// Filter by ids
+			page = await _persistence.GetPageByFilterAsync(
+				null,
+				FilterParams.FromTuples(
+					"ids", "2,3"
+				),
+				new PagingParams()
+			);
+
+			Assert.Equal(2, page.Data.Count);
+
+			// Filter combine
+			page = await _persistence.GetPageByFilterAsync(
+				null,
+				FilterParams.FromTuples(
+					"ids", "2,3"
+				,	"tag", "tag5"
+				),
+
+				new PagingParams()
+			);
+
+			Assert.Single(page.Data);
+
+
+		}
+	}
 }

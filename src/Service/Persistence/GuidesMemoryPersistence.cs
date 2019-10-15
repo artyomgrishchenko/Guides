@@ -25,7 +25,11 @@ namespace Guides.Persistence
             var app = filter.GetAsNullableString("app");
             var tag = filter.GetAsNullableString("tag");
 
-            return new List<Func<GuideV1, bool>>() {
+			var ids = filter.GetAsNullableString("ids");
+			var idsList = ids != null ? ids.Split(',') : null;
+
+
+			return new List<Func<GuideV1, bool>>() {
                 (item) =>
                 {
                     if (id != null && item.Id != id)
@@ -38,7 +42,10 @@ namespace Guides.Persistence
                         return false;
                     if (tag != null && !item.Tags.Contains(tag))
                         return false;
-                    return true;
+					if (idsList != null && !idsList.Contains(item.Id))
+						return false;
+
+					return true;
                 }
             };
         }

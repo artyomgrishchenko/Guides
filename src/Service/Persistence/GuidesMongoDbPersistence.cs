@@ -39,7 +39,12 @@ namespace Guides.Persistence
 			if (!string.IsNullOrEmpty(tag))
 				filter &= builder.Where(b => b.Tags.Contains(tag));
 
-            return filter;
+			var ids = filterParams.GetAsNullableString("ids");
+			var idsList = !string.IsNullOrEmpty(ids) ? ids.Split(',') : null;
+			if (idsList != null)
+				filter &= builder.In(b => b.Id, idsList);
+
+			return filter;
         }
 
         public async Task<DataPage<GuideV1>> GetPageByFilterAsync(
