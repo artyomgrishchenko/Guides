@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using PipServices3.Commons.Config;
 using Xunit;
 
-namespace Guides.Persistence
+namespace Wexxle.Guide.Persistence
 {
     public class MemoryGuidesPersistenceTest: IDisposable
     {

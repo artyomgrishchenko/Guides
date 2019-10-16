@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Guides.Data.Version1;
+using Wexxle.Guide.Data.Version1;
 using PipServices3.Commons.Data;
 using PipServices3.Data.Persistence;
 
-namespace Guides.Persistence
+namespace Wexxle.Guide.Persistence
 {
     public class GuidesMemoryPersistence : IdentifiableMemoryPersistence<GuideV1, string>, IGuidesPersistence
     {

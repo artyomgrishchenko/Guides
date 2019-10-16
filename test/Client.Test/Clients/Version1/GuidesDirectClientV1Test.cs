@@ -2,12 +2,13 @@
 using PipServices3.Commons.Refer;
 using System.Threading.Tasks;
 using Xunit;
-using Guides.Persistence;
-using Guides.Logic;
-using Guides.Services.Version1;
+using Wexxle.Guide.Persistence;
+using Wexxle.Guide.Logic;
+using Wexxle.Guide.Services.Version1;
 using System;
+using Wexxle.Attachment.Client.Version1;
 
-namespace Guides.Clients.Version1
+namespace Wexxle.Guide.Clients.Version1
 {
     public class GuidesDirectClientV1Test
     {
@@ -25,8 +26,9 @@ namespace Guides.Clients.Version1
             IReferences references = References.FromTuples(
                 new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), _persistence,
                 new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), _controller,
-                new Descriptor("wexxle-guides", "client", "direct", "default", "1.0"), _client
-            );
+                new Descriptor("wexxle-guides", "client", "direct", "default", "1.0"), _client,
+				new Descriptor("wexxle-attachments", "client", "null", "default", "1.0"), new AttachmentsNullClientV1()
+			);
 
             _controller.SetReferences(references);
 

@@ -4,7 +4,7 @@ using PipServices3.Commons.Config;
 using PipServices3.Commons.Convert;
 using Xunit;
 
-namespace Guides.Persistence
+namespace Wexxle.Guide.Persistence
 {
     public class GuidesMongoDbPersistenceTest : IDisposable
         {

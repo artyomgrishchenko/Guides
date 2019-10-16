@@ -1,4 +1,4 @@
-﻿using Guides.Data.Version1;
+﻿using Wexxle.Guide.Data.Version1;
 using System;
 using System.Collections.Generic;
 using System.Text;

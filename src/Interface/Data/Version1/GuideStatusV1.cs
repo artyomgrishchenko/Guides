@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Guides.Data.Version1
+namespace Wexxle.Guide.Data.Version1
 {
 	public static class GuideStatusV1
 	{

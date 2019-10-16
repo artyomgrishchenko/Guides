@@ -1,11 +1,11 @@
-﻿using Guides.Data.Version1;
+﻿using Wexxle.Guide.Data.Version1;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Guides.Data
+namespace Wexxle.Guide.Data
 {
 	public class TestModel
 	{

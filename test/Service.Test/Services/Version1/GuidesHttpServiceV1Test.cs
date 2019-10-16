@@ -6,15 +6,16 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Guides.Persistence;
-using Guides.Logic;
-using Guides.Data.Version1;
+using Wexxle.Guide.Persistence;
+using Wexxle.Guide.Logic;
+using Wexxle.Guide.Data.Version1;
 using System.Threading;
 using System.Collections.Generic;
 using System;
-using Guides.Data;
+using Wexxle.Guide.Data;
+using Wexxle.Attachment.Client.Version1;
 
-namespace Guides.Services.Version1
+namespace Wexxle.Guide.Services.Version1
 {
     public class GuidesHttpServiceV1Test
     {
@@ -37,8 +38,9 @@ namespace Guides.Services.Version1
             IReferences references = References.FromTuples(
                 new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), _persistence,
                 new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), _controller,
-                new Descriptor("wexxle-guides", "service", "http", "default", "1.0"), _service
-            );
+                new Descriptor("wexxle-guides", "service", "http", "default", "1.0"), _service,
+				new Descriptor("wexxle-attachments", "client", "null", "default", "1.0"), new AttachmentsNullClientV1()
+			);
 
             _controller.SetReferences(references);
 

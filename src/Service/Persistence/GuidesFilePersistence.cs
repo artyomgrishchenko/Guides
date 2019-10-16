@@ -1,8 +1,8 @@
-﻿using Guides.Data.Version1;
+﻿using Wexxle.Guide.Data.Version1;
 using PipServices3.Commons.Config;
 using PipServices3.Data.Persistence;
 
-namespace Guides.Persistence
+namespace Wexxle.Guide.Persistence
 {
     public class GuidesFilePersistence : GuidesMemoryPersistence
     {

@@ -1,8 +1,8 @@
-﻿using Guides.Build;
+﻿using Wexxle.Guide.Build;
 using PipServices3.Container;
 using PipServices3.Rpc.Build;
 
-namespace Guides.Container
+namespace Wexxle.Guide.Container
 {
     public class GuidesProcess : ProcessContainer
     {

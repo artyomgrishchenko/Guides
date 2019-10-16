@@ -1,10 +1,10 @@
 ﻿using PipServices3.Commons.Refer;
 using PipServices3.Components.Build;
-using Guides.Persistence;
-using Guides.Logic;
-using Guides.Services.Version1;
+using Wexxle.Guide.Persistence;
+using Wexxle.Guide.Logic;
+using Wexxle.Guide.Services.Version1;
 
-namespace Guides.Build
+namespace Wexxle.Guide.Build
 {
     public class GuidesServiceFactory : Factory
     {

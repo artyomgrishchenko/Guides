@@ -1,7 +1,7 @@
 ﻿using PipServices3.Commons.Refer;
 using PipServices3.Rpc.Services;
 
-namespace Guides.Services.Version1
+namespace Wexxle.Guide.Services.Version1
 {
     public class GuidesHttpServiceV1: CommandableHttpService
     {

@@ -1,7 +1,7 @@
 ﻿using PipServices3.Commons.Convert;
 using PipServices3.Commons.Validate;
 
-namespace Guides.Data.Version1
+namespace Wexxle.Guide.Data.Version1
 {
     public class GuidePageV1Schema : ObjectSchema
     {

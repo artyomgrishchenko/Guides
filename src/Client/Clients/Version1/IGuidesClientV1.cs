@@ -1,8 +1,8 @@
 ﻿using PipServices3.Commons.Data;
 using System.Threading.Tasks;
-using Guides.Data.Version1;
+using Wexxle.Guide.Data.Version1;
 
-namespace Guides.Clients.Version1
+namespace Wexxle.Guide.Clients.Version1
 {
     public interface IGuidesClientV1
     {

@@ -2,14 +2,15 @@
 using Xunit;
 using PipServices3.Commons.Data;
 using PipServices3.Commons.Config;
-using Guides.Persistence;
-using Guides.Data.Version1;
+using Wexxle.Guide.Persistence;
+using Wexxle.Guide.Data.Version1;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Guides.Data;
+using Wexxle.Guide.Data;
+using Wexxle.Attachment.Client.Version1;
 
-namespace Guides.Logic
+namespace Wexxle.Guide.Logic
 {
     public class GuidesControllerTest: IDisposable
     {
@@ -25,8 +26,9 @@ namespace Guides.Logic
 
             var references = References.FromTuples(
                 new Descriptor("wexxle-guides", "persistence", "memory", "*", "1.0"), _persistence,
-                new Descriptor("wexxle-guides", "controller", "default", "*", "1.0"), _controller
-            );
+                new Descriptor("wexxle-guides", "controller", "default", "*", "1.0"), _controller,
+				new Descriptor("wexxle-attachments", "client", "null", "default", "1.0"), new AttachmentsNullClientV1()
+			);
 
             _controller.SetReferences(references);
 

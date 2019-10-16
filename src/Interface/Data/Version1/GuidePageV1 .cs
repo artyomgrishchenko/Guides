@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Guides.Data.Version1
+namespace Wexxle.Guide.Data.Version1
 {
 	[DataContract]
 	public class GuidePageV1

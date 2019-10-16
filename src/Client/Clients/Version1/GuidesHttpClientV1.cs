@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Guides.Data.Version1;
+using Wexxle.Guide.Data.Version1;
 using PipServices3.Commons.Data;
 using PipServices3.Rpc.Clients;
 
-namespace Guides.Clients.Version1
+namespace Wexxle.Guide.Clients.Version1
 {
     public class GuidesHttpClientV1 : CommandableHttpClient, IGuidesClientV1
     {

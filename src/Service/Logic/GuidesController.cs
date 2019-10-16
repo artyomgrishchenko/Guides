@@ -2,16 +2,16 @@
 using PipServices3.Commons.Config;
 using PipServices3.Commons.Data;
 using PipServices3.Commons.Refer;
-using Guides.Persistence;
+using Wexxle.Guide.Persistence;
 using System.Threading.Tasks;
-using Guides.Data.Version1;
-using Guides.Logic;
+using Wexxle.Guide.Data.Version1;
+using Wexxle.Guide.Logic;
 using System;
 using Wexxle.Guide.Logic;
 using Wexxle.Attachment.Client.Version1;
 using PipServices3.Components.Logic;
 
-namespace Guides.Logic
+namespace Wexxle.Guide.Logic
 {
     public class GuidesController : AbstractController, IGuidesController,  ICommandable
     {

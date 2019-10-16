@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using PipServices3.Commons.Data;
-using Guides.Data.Version1;
+using Wexxle.Guide.Data.Version1;
 
-namespace Guides.Persistence
+namespace Wexxle.Guide.Persistence
 {
     public interface IGuidesPersistence
     {

@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Guides.Clients.Version1;
-using Guides.Data.Version1;
-using Guides.Logic;
+using Wexxle.Guide.Clients.Version1;
+using Wexxle.Guide.Data.Version1;
+using Wexxle.Guide.Logic;
 using PipServices3.Commons.Data;
 using PipServices3.Commons.Refer;
 using PipServices3.Rpc.Clients;
 
-namespace Guides.Clients.Version1
+namespace Wexxle.Guide.Clients.Version1
 {
     public class GuidesDirectClientV1 : DirectClient<IGuidesController>, IGuidesClientV1
     {

@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Guides.Data.Version1;
+using Wexxle.Guide.Data.Version1;
 using MongoDB.Driver;
 using PipServices3.Commons.Data;
 using PipServices3.MongoDb.Persistence;
 
-namespace Guides.Persistence
+namespace Wexxle.Guide.Persistence
 {
     public class GuidesMongoDbPersistence : IdentifiableMongoDbPersistence<GuideV1, string>, IGuidesPersistence
     {

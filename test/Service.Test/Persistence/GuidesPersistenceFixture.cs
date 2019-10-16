@@ -1,12 +1,12 @@
-﻿using Guides.Data;
-using Guides.Data.Version1;
+﻿using Wexxle.Guide.Data;
+using Wexxle.Guide.Data.Version1;
 using PipServices3.Commons.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Guides.Persistence
+namespace Wexxle.Guide.Persistence
 {
     public class GuidesPersistenceFixture
     {

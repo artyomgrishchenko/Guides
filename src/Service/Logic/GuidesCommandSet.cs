@@ -1,11 +1,11 @@
-﻿using Guides.Data.Version1;
+﻿using Wexxle.Guide.Data.Version1;
 using PipServices3.Commons.Commands;
 using PipServices3.Commons.Data;
 using PipServices3.Commons.Convert;
 using PipServices3.Commons.Validate;
 using System.Collections.Generic;
 
-namespace Guides.Logic
+namespace Wexxle.Guide.Logic
 {
     public class GuidesCommandSet : CommandSet
     {

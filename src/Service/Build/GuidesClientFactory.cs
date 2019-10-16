@@ -1,9 +1,9 @@
 ﻿using PipServices3.Commons.Refer;
 using PipServices3.Components.Build;
-using Guides.Clients.Version1;
+using Wexxle.Guide.Clients.Version1;
 using Wexxle.Attachment.Client.Version1;
 
-namespace Guides.Build
+namespace Wexxle.Guide.Build
 {
     public class GuidesClientFactory : Factory
     {

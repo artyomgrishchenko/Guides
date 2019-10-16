@@ -1,8 +1,8 @@
-﻿using Guides.Data.Version1;
+﻿using Wexxle.Guide.Data.Version1;
 using PipServices3.Commons.Data;
 using System.Threading.Tasks;
 
-namespace Guides.Logic
+namespace Wexxle.Guide.Logic
 {
     public interface IGuidesController
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using PipServices3.Commons.Data;
 
-namespace Guides.Data.Version1
+namespace Wexxle.Guide.Data.Version1
 {
 	[DataContract]
 	public class GuideV1 : IStringIdentifiable
