@@ -8,7 +8,7 @@ namespace Guides.Services.Version1
         public GuidesHttpServiceV1()
             : base("v1/guides")
         {
-            _dependencyResolver.Put("controller", new Descriptor("guides", "controller", "default", "*", "1.0"));
+            _dependencyResolver.Put("controller", new Descriptor("wexxle-guides", "controller", "default", "*", "1.0"));
         }
     }
 }
