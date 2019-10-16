@@ -54,3 +54,11 @@
 
 # Prometheus accounts service
 #- descriptor: "pip-services:metrics-service:prometheus:default:1.0"
+
+  # Attachment selections HTTP client
+- descriptor: "wexxle-attachment-selections:client:http:default:*
+"
+  connection:
+    protocol: {{WEX_ATTACHMENT_SELECTIONS_SERVICE_PROTOCOL}}{{^WEX_ATTACHMENT_SELECTIONS_SERVICE_PROTOCOL}}http{{/WEX_ATTACHMENT_SELECTIONS_SERVICE_PROTOCOL}}
+    host: {{WEX_ATTACHMENT_SELECTIONS_SERVICE_HOST}}{{^WEX_ATTACHMENT_SELECTIONS_SERVICE_HOST}}localhost{{/WEX_ATTACHMENT_SELECTIONS_SERVICE_HOST}}
+    port: {{WEX_ATTACHMENT_SELECTIONS_SERVICE_PORT}}{{^WEX_ATTACHMENT_SELECTIONS_SERVICE_PORT}}8087{{/WEX_ATTACHMENT_SELECTIONS_SERVICE_PORT}}

@@ -8,8 +8,8 @@ namespace Guides.Data.Version1
         public GuideV1Schema()
         {
             this.WithOptionalProperty("id"				, TypeCode.String);
-			this.WithRequiredProperty("name"			, TypeCode.String);
-			this.WithOptionalProperty("type"			, TypeCode.String);
+			this.WithOptionalProperty("name"			, TypeCode.String);
+			this.WithRequiredProperty("type"			, TypeCode.String);
 			this.WithOptionalProperty("app"				, TypeCode.String);
 			this.WithOptionalProperty("min_ver"			, TypeCode.Long);
 			this.WithOptionalProperty("max_ver"			, TypeCode.Long);
