@@ -12,7 +12,7 @@ namespace Guides.Clients.Version1
     {
         public GuidesDirectClientV1() : base()
         {
-            _dependencyResolver.Put("controller", new Descriptor("guides", "controller", "*", "*", "1.0"));
+            _dependencyResolver.Put("controller", new Descriptor("wexxle-guides", "controller", "*", "*", "1.0"));
         }
 
         public async Task<DataPage<GuideV1>> GetGuidesAsync(
