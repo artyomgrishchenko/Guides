@@ -24,8 +24,8 @@ namespace Guides.Logic
             _controller = new GuidesController();
 
             var references = References.FromTuples(
-                new Descriptor("guides", "persistence", "memory", "*", "1.0"), _persistence,
-                new Descriptor("guides", "controller", "default", "*", "1.0"), _controller
+                new Descriptor("wexxle-guides", "persistence", "memory", "*", "1.0"), _persistence,
+                new Descriptor("wexxle-guides", "controller", "default", "*", "1.0"), _controller
             );
 
             _controller.SetReferences(references);

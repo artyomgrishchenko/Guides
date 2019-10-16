@@ -35,9 +35,9 @@ namespace Guides.Services.Version1
             _service = new GuidesHttpServiceV1();
 
             IReferences references = References.FromTuples(
-                new Descriptor("guides", "persistence", "memory", "default", "1.0"), _persistence,
-                new Descriptor("guides", "controller", "default", "default", "1.0"), _controller,
-                new Descriptor("guides", "service", "http", "default", "1.0"), _service
+                new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), _persistence,
+                new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), _controller,
+                new Descriptor("wexxle-guides", "service", "http", "default", "1.0"), _service
             );
 
             _controller.SetReferences(references);
