@@ -9,31 +9,41 @@ using Guides.Logic;
 using System;
 using Wexxle.Guide.Logic;
 using Wexxle.Attachment.Client.Version1;
+using PipServices3.Components.Logic;
 
 namespace Guides.Logic
 {
-    public class GuidesController : IGuidesController, IConfigurable, IReferenceable, ICommandable
+    public class GuidesController : AbstractController, IGuidesController,  ICommandable
     {
         private IGuidesPersistence _persistence;
         private GuidesCommandSet _commandSet;
 		private AttachmentsConnector _attachmentsConnector;
 		private IAttachmentsClientV1 _attachmentsClient;
 
-        public GuidesController()
-        {}
+		public override string Component => "Guides";
 
-        public void Configure(ConfigParams config)
-        {}
-
-        public void SetReferences(IReferences references)
+		public GuidesController()
         {
-            _persistence = references.GetOneRequired<IGuidesPersistence>(
-                new Descriptor("guides", "persistence", "*", "*", "1.0")
-            );
+			_dependencyResolver.Put("persistence", new Descriptor("wexxle-guides", "persistence", "*", "*", "1.0"));
+			_dependencyResolver.Put("attachments", new Descriptor("wexxle-attachments", "client", "*", "*", "1.0"));
+		}
 
-			_attachmentsClient = references.GetOneRequired<IAttachmentsClientV1>(
-				new Descriptor("attachments", "client", "*", "*", "1.0")
-				);
+		public override void Configure(ConfigParams config)
+		{
+			base.Configure(config);
+
+			_dependencyResolver.Configure(config);
+		}
+
+		public override void SetReferences(IReferences references)
+		{
+			base.SetReferences(references);
+
+			_dependencyResolver.SetReferences(references);
+
+			_persistence = _dependencyResolver.GetOneRequired<IGuidesPersistence>("persistence");
+
+			_attachmentsClient = _dependencyResolver.GetOneRequired<IAttachmentsClientV1>("attachments");
 
 			_attachmentsConnector = new AttachmentsConnector(_attachmentsClient);
 		}

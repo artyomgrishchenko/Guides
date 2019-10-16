@@ -23,9 +23,9 @@ namespace Guides.Clients.Version1
             _client = new GuidesDirectClientV1();
 
             IReferences references = References.FromTuples(
-                new Descriptor("guides", "persistence", "memory", "default", "1.0"), _persistence,
-                new Descriptor("guides", "controller", "default", "default", "1.0"), _controller,
-                new Descriptor("guides", "client", "direct", "default", "1.0"), _client
+                new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), _persistence,
+                new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), _controller,
+                new Descriptor("wexxle-guides", "client", "direct", "default", "1.0"), _client
             );
 
             _controller.SetReferences(references);

@@ -8,11 +8,11 @@ namespace Guides.Build
 {
     public class GuidesServiceFactory : Factory
     {
-        public static Descriptor Descriptor = new Descriptor("guides", "factory", "service", "default", "1.0");
-        public static Descriptor MemoryPersistenceDescriptor = new Descriptor("guides", "persistence", "memory", "*", "1.0");
-        public static Descriptor MongoDbPersistenceDescriptor = new Descriptor("guides", "persistence", "mongodb", "*", "1.0");
-        public static Descriptor ControllerDescriptor = new Descriptor("guides", "controller", "default", "*", "1.0");
-        public static Descriptor HttpServiceDescriptor = new Descriptor("guides", "service", "http", "*", "1.0");
+        public static Descriptor Descriptor = new Descriptor("wexxle-guides", "factory", "service", "default", "1.0");
+        public static Descriptor MemoryPersistenceDescriptor = new Descriptor("wexxle-guides", "persistence", "memory", "*", "1.0");
+        public static Descriptor MongoDbPersistenceDescriptor = new Descriptor("wexxle-guides", "persistence", "mongodb", "*", "1.0");
+        public static Descriptor ControllerDescriptor = new Descriptor("wexxle-guides", "controller", "default", "*", "1.0");
+        public static Descriptor HttpServiceDescriptor = new Descriptor("wexxle-guides", "service", "http", "*", "1.0");
 
 
         public GuidesServiceFactory()

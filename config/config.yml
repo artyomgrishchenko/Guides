@@ -14,7 +14,7 @@
 
 {{#if MONGO_ENABLED}}
 # MongoDB Persistence
-- descriptor: "guides:persistence:mongodb:default:1.0"
+- descriptor: "wexxle-guides:persistence:mongodb:default:1.0"
   collection: {{MONGO_COLLECTION}}{{^MONGO_COLLECTION}}guides{{/MONGO_COLLECTION}}
   connection:
     uri: {{MONGO_SERVICE_URI}}
@@ -28,11 +28,11 @@
 
 {{^MOCK_ENABLED}}{{^MONGO_ENABLED}}
 # Default in-memory persistence
-- descriptor: "guides:persistence:memory:default:1.0"
+- descriptor: "wexxle-guides:persistence:memory:default:1.0"
 {{/MONGO_ENABLED}}{{/MOCK_ENABLED}}
 
 # Default controller
-- descriptor: "guides:controller:default:default:1.0"
+- descriptor: "wexxle-guides:controller:default:default:1.0"
 
 # Common HTTP endpoint
 - descriptor: "pip-services3:endpoint:http:default:1.0"
@@ -42,7 +42,7 @@
     port: {{{HTTP_PORT}}}{{^HTTP_PORT}}8080{{/HTTP_PORT}}
 
 # HTTP service version 1.0
-- descriptor: "guides:service:http:default:1.0"
+- descriptor: "wexxle-guides:service:http:default:1.0"
 
 # Heartbeat service
 - descriptor: "pip-services3:heartbeat-service:http:default:1.0"
@@ -55,10 +55,11 @@
 # Prometheus accounts service
 #- descriptor: "pip-services:metrics-service:prometheus:default:1.0"
 
-  # Attachment selections HTTP client
+# Attachment selections HTTP client
 - descriptor: "wexxle-attachment-selections:client:http:default:*
 "
   connection:
     protocol: {{WEX_ATTACHMENT_SELECTIONS_SERVICE_PROTOCOL}}{{^WEX_ATTACHMENT_SELECTIONS_SERVICE_PROTOCOL}}http{{/WEX_ATTACHMENT_SELECTIONS_SERVICE_PROTOCOL}}
     host: {{WEX_ATTACHMENT_SELECTIONS_SERVICE_HOST}}{{^WEX_ATTACHMENT_SELECTIONS_SERVICE_HOST}}localhost{{/WEX_ATTACHMENT_SELECTIONS_SERVICE_HOST}}
     port: {{WEX_ATTACHMENT_SELECTIONS_SERVICE_PORT}}{{^WEX_ATTACHMENT_SELECTIONS_SERVICE_PORT}}8087{{/WEX_ATTACHMENT_SELECTIONS_SERVICE_PORT}}
+
