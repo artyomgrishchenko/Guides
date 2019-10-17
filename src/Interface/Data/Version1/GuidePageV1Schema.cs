@@ -9,10 +9,10 @@ namespace Wexxle.Guide.Data.Version1
         {
             this.WithOptionalProperty("title"	, TypeCode.Map);
 			this.WithRequiredProperty("content"	, TypeCode.Map);
-			this.WithOptionalProperty("moreUrl"	, TypeCode.String);
+			this.WithOptionalProperty("more_url"	, TypeCode.String);
 			this.WithOptionalProperty("color"	, TypeCode.String);
-			this.WithOptionalProperty("picId"	, TypeCode.String);
-			this.WithOptionalProperty("picUri"	, TypeCode.String);
+			this.WithOptionalProperty("pic_id", TypeCode.String);
+			this.WithOptionalProperty("pic_uri", TypeCode.String);
 		}
     }
 }
