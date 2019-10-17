@@ -21,10 +21,13 @@ namespace Wexxle.Guide.Logic
 		{
 			List<string> ids = new List<string>();
 
-			foreach (var page in guide.Pages)
+			if (guide.Pages != null)
 			{
-				if (page.PicId != null)
-					ids.Add(page.PicId);
+				foreach (var page in guide.Pages)
+				{
+					if (page.PicId != null)
+						ids.Add(page.PicId);
+				}
 			}
 
 			return ids.ToArray();
