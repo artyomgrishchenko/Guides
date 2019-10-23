@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Interface\Interface.csproj" />
-    <ProjectReference Include="..\..\src\Service\Service.csproj" />
+    <ProjectReference Include="..\..\Source\Interface\Interface.csproj" />
+    <ProjectReference Include="..\..\Source\Service\Service.csproj" />
   </ItemGroup>
 </Project>

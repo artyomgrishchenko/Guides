@@ -14,23 +14,23 @@ namespace Wexxle.Guide.Persistence
 
         public GuidesMongoDbPersistenceTest()
         {
-            var MONGO_ENABLED = Environment.GetEnvironmentVariable("MONGO_ENABLED") ?? "true";
-            var MONGO_DB = Environment.GetEnvironmentVariable("MONGO_DB") ?? "test";
-            var MONGO_COLLECTION = Environment.GetEnvironmentVariable("MONGO_COLLECTION") ?? "guides";
-            var MONGO_SERVICE_HOST = Environment.GetEnvironmentVariable("MONGO_SERVICE_HOST") ?? "localhost";
-            var MONGO_SERVICE_PORT = Environment.GetEnvironmentVariable("MONGO_SERVICE_PORT") ?? "27017";
-            var MONGO_SERVICE_URI = Environment.GetEnvironmentVariable("MONGO_SERVICE_URI");
+            var mongoEnabled = Environment.GetEnvironmentVariable("MONGO_ENABLED") ?? "true";
+            var mongoDb = Environment.GetEnvironmentVariable("MONGO_DB") ?? "test";
+            var mongoCollection = Environment.GetEnvironmentVariable("MONGO_COLLECTION") ?? "guides";
+            var mongoServiceHost = Environment.GetEnvironmentVariable("MONGO_SERVICE_HOST") ?? "localhost";
+            var mongoServicePort = Environment.GetEnvironmentVariable("MONGO_SERVICE_PORT") ?? "27017";
+            var mongoServiceUri = Environment.GetEnvironmentVariable("MONGO_SERVICE_URI");
 
-            _enabled = BooleanConverter.ToBoolean(MONGO_ENABLED);
+            _enabled = BooleanConverter.ToBoolean(mongoEnabled);
 
             if (_enabled)
             {
                 var config = ConfigParams.FromTuples(
-                    "collection", MONGO_COLLECTION,
-                    "connection.database", MONGO_DB,
-                    "connection.host", MONGO_SERVICE_HOST,
-                    "connection.port", MONGO_SERVICE_PORT,
-                    "connection.uri", MONGO_SERVICE_URI
+                    "collection", mongoCollection,
+                    "connection.database", mongoDb,
+                    "connection.host", mongoServiceHost,
+                    "connection.port", mongoServicePort,
+                    "connection.uri", mongoServiceUri
                 );
 
                 _persistence = new GuidesMongoDbPersistence();

@@ -47,7 +47,7 @@ namespace Wexxle.Guide.Persistence
 
 	        // act
 	        var deletedGuide = await _persistence.DeleteByIdAsync(null, guide.Id);
-	        var result = await _persistence.GetOneByIdAsync(null, guide.Id);
+	        var result = await _persistence.GetByIdAsync(null, guide.Id);
 
 	        // assert
 	        TestModel.AssertEqual(guide, deletedGuide);
@@ -60,7 +60,7 @@ namespace Wexxle.Guide.Persistence
 	        var guide = await _persistence.CreateAsync(null, TestModel.CreateGuide());
 
 	        // act
-	        var result = await _persistence.GetOneByIdAsync(null, guide.Id);
+	        var result = await _persistence.GetByIdAsync(null, guide.Id);
 
 	        // assert
 	        TestModel.AssertEqual(guide, result);

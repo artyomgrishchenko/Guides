@@ -60,7 +60,7 @@ namespace Wexxle.Guide.Logic
 
         public async Task<GuideV1> GetGuideByIdAsync(string correlationId, string id)
         {
-            return await _persistence.GetOneByIdAsync(correlationId, id);
+            return await _persistence.GetByIdAsync(correlationId, id);
         }
 
         public async Task<GuideV1> CreateGuideAsync(string correlationId, GuideV1 guide)

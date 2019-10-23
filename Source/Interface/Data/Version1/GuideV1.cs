@@ -16,10 +16,10 @@ namespace Wexxle.Guide.Data.Version1
 		[DataMember(Name = "max_ver")] public long? MaxVer { get; set; }
 		[DataMember(Name = "create_time")] public DateTime CreateTime { get; set; }
 		// Content 
-		[DataMember(Name = "pages")] public List<GuidePageV1> Pages { get; set; }
+		[DataMember(Name = "pages")] public List<GuidePageV1> Pages { get; set; } = new List<GuidePageV1>();
 		// Search
-		[DataMember(Name = "tags")] public List<string> Tags { get; set; }
-		[DataMember(Name = "all_tags")] public List<string> AllTags { get; set; }
+		[DataMember(Name = "tags")] public List<string> Tags { get; set; } = new List<string>();
+		[DataMember(Name = "all_tags")] public List<string> AllTags { get; set; } = new List<string>();
 		// Status
 		[DataMember(Name = "status")] public string Status { get; set; }
 		// Custom fields

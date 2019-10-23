@@ -54,5 +54,10 @@ namespace Wexxle.Guide.Persistence
         {
             return base.GetPageByFilterAsync(correlationId, ComposeFilter(filter), paging);
         }
+
+        public async Task<GuideV1> GetByIdAsync(string correlationId, string id)
+        {
+	        return  await  GetOneByIdAsync(correlationId, id);
+        }
     }
 }

@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="src\Interface\Data\Version1\GuideTypeV1.cs" />
-    <Compile Remove="test\Service.Test\Interface\Data\Version1\TestModel.cs" />
+    <Compile Remove="Source\Interface\Data\Version1\GuideTypeV1.cs" />
+    <Compile Remove="Test\Service.Test\Interface\Data\Version1\TestModel.cs" />
     <Compile Remove="Persistence\GuidesMongoDbSchema.cs" />
   </ItemGroup>
 </Project>
