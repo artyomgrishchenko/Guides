@@ -1,14 +1,17 @@
 version: '3.3'
 
 services:
+
   app:
-    image: ${IMAGE:-guides:latest}
+    image: ${IMAGE:-wexxle/wexxle-guides:latest}
     links:
       - mongo
     environment:
       - MONGO_ENABLED=true
-      - MONGO_SERVICE_URI=mongodb://mongo:27017/guides
-      - MONGO_COLLECTION=guides
+      - MONGO_SERVICE_HOST=mongo
+      - MONGO_SERVICE_PORT=27017
+      - MONGO_SERVICE_URI=mongodb://mongo:27017/wexxle
+      - MONGO_DB=app
     ports:
       - "8080:8080"
 

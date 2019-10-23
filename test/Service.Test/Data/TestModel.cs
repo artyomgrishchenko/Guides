@@ -51,8 +51,8 @@ namespace Wexxle.Guide.Data
 			Name = "TestGuide1",
 			Type = GuideTypeV1.Home,
 			App = "App1",
-			Min_ver = 12,
-			Max_ver = 50,
+			MinVer = 12,
+			MaxVer = 50,
 			Tags = new List<string> { "tag1", "tag2", "tag3" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "active",
@@ -64,8 +64,8 @@ namespace Wexxle.Guide.Data
 			Name = "TestGuide2",
 			Type = GuideTypeV1.Introduction,
 			App = "App2",
-			Min_ver = 5,
-			Max_ver = 11,
+			MinVer = 5,
+			MaxVer = 11,
 			Tags = new List<string> { "tag1", "tag2", "tag3", "tag4" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "new",
@@ -77,8 +77,8 @@ namespace Wexxle.Guide.Data
 			Name = "TestGuide3",
 			Type = GuideTypeV1.Introduction,
 			App = "App3",
-			Min_ver = 11,
-			Max_ver = 14,
+			MinVer = 11,
+			MaxVer = 14,
 			Tags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
 			Status = "new",
@@ -120,8 +120,8 @@ namespace Wexxle.Guide.Data
 		{
 			Assert.NotNull(actualGuide);
 			Assert.Equal(expectedGuide.App, actualGuide.App);
-			Assert.Equal(expectedGuide.Max_ver, actualGuide.Max_ver);
-			Assert.Equal(expectedGuide.Min_ver, actualGuide.Min_ver);
+			Assert.Equal(expectedGuide.MaxVer, actualGuide.MaxVer);
+			Assert.Equal(expectedGuide.MinVer, actualGuide.MinVer);
 			Assert.Equal(expectedGuide.Name, actualGuide.Name);
 			Assert.Equal(expectedGuide.Status, actualGuide.Status);
 			Assert.Equal(expectedGuide.Type, actualGuide.Type);

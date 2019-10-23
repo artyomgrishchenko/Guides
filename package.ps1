@@ -1,7 +1,5 @@
 #!/usr/bin/env pwsh
 
-Set-ExecutionPolicy unrestricted
-
 Set-StrictMode -Version latest
 $ErrorActionPreference = "Stop"
 
@@ -17,7 +15,7 @@ $env:IMAGE = $image
 
 # Set docker host address
 $dockerMachineHost = $env:DOCKER_MACHINE_HOST
-if ($null -eq $dockerMachineHost) {
+if ($dockerMachineHost -eq $null) {
     $dockerMachineHost = "localhost"
 }
 

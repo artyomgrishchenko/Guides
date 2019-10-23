@@ -1,16 +1,50 @@
 ---
 # Console logger
-- descriptor: "pip-services3-commons:logger:console:default:1.0"
-  level: "trace"
+- descriptor: "pip-services3:logger:console:default:1.0"
+  level: {{WEX_LOG_LEVEL}}{{^WEX_LOG_LEVEL}}info{{/WEX_LOG_LEVEL}}
 
 # Performance counters that posts values to log
-- descriptor: "pip-services3-commons:counters:log:default:1.0"
-  level: "trace"
+- descriptor: "pip-services3:counters:log:default:1.0"
+  level: {{WEX_LOG_LEVEL}}{{^WEX_LOG_LEVEL}}info{{/WEX_LOG_LEVEL}}
 
-# # Elastic search logger vesion 1.0
-# - descriptor: "pip-services:logger:elasticsearch:default:1.0"
-#   connection:
-#     uri: {{ELASTIC_SEARCH_SERVICE_URI}}{{^ELASTIC_SEARCH_SERVICE_URI}}http://localhost:9200{{/ELASTIC_SEARCH_SERVICE_URI}}
+{{#if ELASTICSEARCH_LOGGER_ENABLED}}
+# Elastic search logger vesion 1.0
+- descriptor: "pip-services3:logger:elasticsearch:default:1.0"
+  level: {{WEX_LOG_LEVEL}}{{^WEX_LOG_LEVEL}}info{{/WEX_LOG_LEVEL}}
+  connection:
+    uri: {{ELASTICSEARCH_SERVICE_URI}}{{^ELASTICSEARCH_SERVICE_URI}}http://localhost:9200{{/ELASTICSEARCH_SERVICE_URI}}
+{{/if}}
+
+{{#if ENTERPRISE_SERVICES_PROMETHEUS_ENABLED}}
+# Prometheus counters vesion 1.0
+- descriptor: "pip-services3:counters:prometheus:default:1.0"
+  level: {{WEX_LOG_LEVEL}}{{^WEX_LOG_LEVEL}}info{{/WEX_LOG_LEVEL}}
+  interval: {{PROMETHEUS_INTERVAL}}{{^PROMETHEUS_INTERVAL}}30000{{/PROMETHEUS_INTERVAL}}
+  push_enabled: {{PROMETHEUS_PUSH_ENABLED}}{{^PROMETHEUS_PUSH_ENABLED}}false{{/PROMETHEUS_PUSH_ENABLED}}
+
+# Prometheus metrics service version 1.0
+- descriptor: "pip-services3:metrics-service:prometheus:default:1.0"
+  connection:
+    protocol: "http"
+    host: {{PROMETHEUS_SERVICE_HOST}}{{^PROMETHEUS_SERVICE_HOST}}0.0.0.0{{/PROMETHEUS_SERVICE_HOST}}
+    port: {{PROMETHEUS_SERVICE_PORT}}{{^PROMETHEUS_SERVICE_PORT}}8082{{/PROMETHEUS_SERVICE_PORT}}
+{{/if}}
+
+{{#if MEMORY_ENABLED}}
+# In-memory persistence. Use only for testing!
+- descriptor: "wexxle-guides:persistence:memory:default:1.0"
+{{/if}}
+
+{{#if QUEUE_ENABLED}}
+ # Message queue persistence
+- descriptor: "pip-services:message-queue:storage-message-queue:default:1.0"
+  table: {{TABLE_NAME}}
+  connection:
+    protocol: {{TABLE_PROTOCOL}}
+  credential:
+    access_id: {{TABLE_ACCOUNT_NAME}}
+    access_key: {{TABLE_ACCOUNT_KEY}}
+{{/if}}
 
 {{#if MONGO_ENABLED}}
 # MongoDB Persistence
@@ -21,15 +55,14 @@
     host: {{MONGO_SERVICE_HOST}}{{^MONGO_SERVICE_HOST}}localhost{{/MONGO_SERVICE_HOST}}
     port: {{MONGO_SERVICE_PORT}}{{^MONGO_SERVICE_PORT}}27017{{/MONGO_SERVICE_PORT}}
     database: {{MONGO_DB}}{{^MONGO_DB}}app{{/MONGO_DB}}
-  credential:
-    username: {{MONGO_USER}}
-    password: {{MONGO_PASS}}
+  options:
+    max_page_size: 500
 {{/if}}
 
-{{^MOCK_ENABLED}}{{^MONGO_ENABLED}}
+{{^MEMORY_ENABLED}}{{^MONGO_ENABLED}}
 # Default in-memory persistence
 - descriptor: "wexxle-guides:persistence:memory:default:1.0"
-{{/MONGO_ENABLED}}{{/MOCK_ENABLED}}
+{{/MONGO_ENABLED}}{{/MEMORY_ENABLED}}
 
 # Default controller
 - descriptor: "wexxle-guides:controller:default:default:1.0"
@@ -41,18 +74,11 @@
     host: "0.0.0.0"
     port: {{{HTTP_PORT}}}{{^HTTP_PORT}}8080{{/HTTP_PORT}}
 
-# HTTP service version 1.0
+# HTTP endpoint version 1.0
 - descriptor: "wexxle-guides:service:http:default:1.0"
 
 # Heartbeat service
 - descriptor: "pip-services3:heartbeat-service:http:default:1.0"
-  route: heartbeat
 
 # Status service
 - descriptor: "pip-services3:status-service:http:default:1.0"
-  route: status
-
-# Prometheus accounts service
-#- descriptor: "pip-services:metrics-service:prometheus:default:1.0"
-
-

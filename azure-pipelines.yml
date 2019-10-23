@@ -1,0 +1,134 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- powershell: |
+   $component = Get-Content -Path "component.json" | ConvertFrom-Json
+   
+   $component | add-member -Name "build" -value ($env:BUILD_BUILDNUMBER) -MemberType NoteProperty -Force
+   
+   $component | ConvertTo-Json | Set-Content -Path "component.json"
+   
+   [System.Xml.XmlDocument]$xml = Get-Content -Path Source/Interface/Interface.csproj
+   if ($xml.Project.PropertyGroup -is [array]) {
+    $xml.Project.PropertyGroup[0].Version = $component.version
+   }
+   else
+   {
+     $xml.Project.PropertyGroup.Version = $component.version
+   }
+   $xml.Save("Source/Interface/Interface.csproj")
+   
+   [System.Xml.XmlDocument]$xml1 = Get-Content -Path Source/Client/Client.csproj
+   if ($xml1.Project.PropertyGroup -is [array]) {
+    $xml1.Project.PropertyGroup[0].Version = $component.version
+   }
+   else
+   {
+     $xml1.Project.PropertyGroup.Version = $component.version
+   }
+   $xml1.Save("Source/Client/Client.csproj")
+  displayName: 'Update build number and component version'
+- powershell: |
+   $xmlWriter = New-Object System.XMl.XmlTextWriter("nuget.config",$Null)
+   $xmlWriter.Formatting = "Indented"
+   $xmlWriter.Indentation = 1
+   $XmlWriter.IndentChar = "`t"
+   $xmlWriter.WriteStartDocument()
+           
+   $xmlWriter.WriteStartElement("configuration")
+      
+   $xmlWriter.WriteEndElement()
+   $xmlWriter.WriteEndDocument()
+   $xmlWriter.Flush()
+   $xmlWriter.Close()
+      
+   $xmlDoc = [System.Xml.XmlDocument](Get-Content "nuget.config");
+      
+   $packageSources = $xmlDoc.CreateElement("packageSources")
+   $xmlDoc.SelectSingleNode("//configuration").AppendChild($packageSources)
+   $packageSource=$packageSources.AppendChild($xmlDoc.CreateElement("add"))
+   $packageSource.SetAttribute("key", $env:NUGET_SOURCE_NAME)
+   $packageSource.SetAttribute("value", $env:NUGET_SOURCE_URL)
+      
+   $packageSource=$packageSources.AppendChild($xmlDoc.CreateElement("add"))
+   $packageSource.SetAttribute("key", "nuget.org")
+   $packageSource.SetAttribute("value", "https://api.nuget.org/v3/index.json")
+      
+   $packageSourceCredentials = $xmlDoc.CreateElement("packageSourceCredentials")
+   $xmlDoc.SelectSingleNode("//configuration").AppendChild($packageSourceCredentials)
+   $packageSourceCredential=$packageSourceCredentials.AppendChild($xmlDoc.CreateElement($env:NUGET_SOURCE_NAME))
+   $username=$packageSourceCredential.AppendChild($xmlDoc.CreateElement("add"))
+   $username.SetAttribute("key", "Username")
+   $username.SetAttribute("value", $env:NUGET_USERNAME)
+   $password=$packageSourceCredential.AppendChild($xmlDoc.CreateElement("add"))
+   $password.SetAttribute("key", "ClearTextPassword")
+   $password.SetAttribute("value", $env:NUGET_PASSWORD)
+      
+   $encoding="utf-8"
+   $xmlDoc.xml = $($xmlDoc.CreateXmlDeclaration("1.0",$encoding,"")).Value
+      
+   $xmlDoc.Save("nuget.config")
+  displayName: 'Create nuget.config'
+- task: PowerShell@2
+  displayName: Build
+  inputs:
+    targetType: filePath
+    filePath: ./build.ps1
+- task: PowerShell@2
+  displayName: Test
+  inputs:
+    targetType: filePath
+    filePath: ./test.ps1
+- task: PowerShell@2
+  displayName: Package
+  inputs:
+    targetType: filePath
+    filePath: ./package.ps1
+- task: PowerShell@2
+  displayName: Publish
+  inputs:
+    targetType: filePath
+    filePath: ./publish.ps1
+- task: DotNetCoreCLI@2
+  displayName: 'Push Nuget packages'
+  inputs:
+    command: 'push'
+    packagesToPush: '**/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'default'
+- powershell: |
+   $component = Get-Content -Path "component.json" | ConvertFrom-Json
+   $version = $component.version
+   $build_number = $component.build
+   
+   $tag=($version) + '-' + ($build_number)
+  
+   Write-Host "##vso[build.updatebuildnumber]$tag"
+  displayName: 'Set tag environment'
+- task: CopyFiles@2
+  displayName: 'Copy component.json to drop'
+  inputs:
+    Contents: component.json
+    TargetFolder: drop
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact from drop'
+  inputs:
+    PathtoPublish: drop
+- task: PowerShell@2
+  displayName: Clean
+  inputs:
+    targetType: filePath
+    filePath: ./clean.ps1
+  condition: always()

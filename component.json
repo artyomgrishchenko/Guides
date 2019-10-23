@@ -1,6 +1,6 @@
 {
-    "name": "wexxle-guides",
-    "registry": "artyomgrishchenko",
-    "version": "1.0.0",
-    "build": "0"
+    "name":  "wexxle-assets",
+    "registry": "wexxle.azurecr.io",
+    "version":  "1.0.2",
+    "build": 1
 }
