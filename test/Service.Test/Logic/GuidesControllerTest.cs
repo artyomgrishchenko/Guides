@@ -3,10 +3,9 @@ using Xunit;
 using PipServices3.Commons.Data;
 using PipServices3.Commons.Config;
 using Wexxle.Guide.Persistence;
-using Wexxle.Guide.Data.Version1;
 using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using PipServices3.Commons.Random;
 using Wexxle.Guide.Data;
 using Wexxle.Attachment.Client.Version1;
 
@@ -14,8 +13,8 @@ namespace Wexxle.Guide.Logic
 {
     public class GuidesControllerTest: IDisposable
     {
-        private GuidesController _controller;
-        private GuidesMemoryPersistence _persistence;
+        private readonly GuidesController _controller;
+        private readonly GuidesMemoryPersistence _persistence;
 
         public GuidesControllerTest()
         {
@@ -40,45 +39,79 @@ namespace Wexxle.Guide.Logic
             _persistence.CloseAsync(null).Wait();
         }
 
-        [Fact]
-        public async Task TestCrudOperationsAsync()
-        {
-			TestModel testModel = new TestModel();
-			var guide = await testModel.TestCreateGuidesAsync(_controller.CreateGuideAsync);
+		[Fact]
+		public async Task It_Should_Create_Guide()
+		{
+			// arrange 
+			var guide = TestModel.CreateGuide();
 
+			// act
+			var result = await _controller.CreateGuideAsync(null, guide);
 
-			// Get all guides
+			// assert
+			TestModel.AssertEqual(guide, result);
+		}
+
+		[Fact]
+		public async Task It_Should_Update_Guide()
+		{
+			// arrange
+			var guide1 = await _controller.CreateGuideAsync(null, TestModel.CreateGuide());
+
+			// act
+			guide1.Name = RandomText.Word();
+			var result = await _controller.UpdateGuideAsync(null, guide1);
+
+			// assert
+			Assert.NotNull(result);
+			TestModel.AssertEqual(guide1, result);
+		}
+
+		[Fact]
+		public async Task It_Should_Delete_Guide()
+		{
+			// arrange 
+			var guide = await _controller.CreateGuideAsync(null, TestModel.CreateGuide());
+
+			// act
+			var deletedGuide = await _controller.DeleteGuideByIdAsync(null, guide.Id);
+			var result = await _controller.GetGuideByIdAsync(null, guide.Id);
+
+			// assert
+			TestModel.AssertEqual(guide, deletedGuide);
+			Assert.Null(result);
+		}
+
+		[Fact]
+		public async Task It_Should_Get_Guide_By_Id()
+		{
+			// arrange 
+			var guide = await _controller.CreateGuideAsync(null, TestModel.CreateGuide());
+
+			// act
+			var result = await _controller.GetGuideByIdAsync(null, guide.Id);
+
+			// assert
+			TestModel.AssertEqual(guide, result);
+		}
+
+		[Fact]
+		public async Task It_Should_Get_All_Guides()
+		{
+			// arrange 
+			await _controller.CreateGuideAsync(null, TestModel.CreateGuide());
+			await _controller.CreateGuideAsync(null, TestModel.CreateGuide());
+
+			// act
 			var page = await _controller.GetGuidesAsync(
-                null,
-                new FilterParams(),
-                new PagingParams()
-            );
+				null,
+				new FilterParams(),
+				new PagingParams()
+			);
 
-            Assert.NotNull(page);
-            Assert.Equal(3, page.Data.Count);
-
-            var guide1 = page.Data[0];
-
-            // Update the guide
-            guide1.Name = "GuideName";
-
-            guide = await _controller.UpdateGuideAsync(null, guide1);
-
-            Assert.NotNull(guide);
-            Assert.Equal(guide1.Id, guide.Id);
-            Assert.Equal("GuideName", guide.Name);
-
-            // Delete the guide
-            guide = await _controller.DeleteGuideByIdAsync(null, guide1.Id);
-
-            Assert.NotNull(guide);
-            Assert.Equal(guide1.Id, guide.Id);
-
-            // Try to get deleted guide
-            guide = await _controller.GetGuideByIdAsync(null, guide1.Id);
-
-            Assert.Null(guide);
-        }
-
-    }
+			// assert
+			Assert.NotNull(page);
+			Assert.Equal(2, page.Data.Count);
+		}
+	}
 }

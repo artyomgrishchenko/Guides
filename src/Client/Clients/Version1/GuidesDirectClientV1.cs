@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Wexxle.Guide.Clients.Version1;
 using Wexxle.Guide.Data.Version1;
 using Wexxle.Guide.Logic;
 using PipServices3.Commons.Data;

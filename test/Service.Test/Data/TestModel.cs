@@ -1,122 +1,86 @@
 ﻿using Wexxle.Guide.Data.Version1;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using PipServices3.Commons.Data;
+using PipServices3.Commons.Random;
 using Xunit;
 
 namespace Wexxle.Guide.Data
 {
-	public class TestModel
+	public static class TestModel
 	{
-		private GuidePageV1 GUIDEPAGE1 = new GuidePageV1
+		public static GuideV1 CreateGuide()
 		{
-			Title = new Dictionary<string, string>() { { "Page1Title1", "Some in title1" }, { "Page1Title2", "Some in title2" } },
-			Content = new Dictionary<string, string>() { { "Page1Content1", "Some in content1" }, { "Page1Content2", "Some in content2" } },
-			Color = "yellow",
-			PicId = "1",
-			PicUri = "000001"
-		};
+			return new GuideV1
+			{
+				Id = IdGenerator.NextLong(),
+				Name = RandomText.Name(),
+				Type = RandomGuideType(),
+				App = RandomText.Phrase(1, 50),
+				MinVer = RandomLong.NextLong(int.MaxValue),
+				MaxVer = RandomLong.NextLong(int.MaxValue),
+				Tags = new List<string>
+				{
+					RandomText.Stuff(), IdGenerator.NextLong() ,RandomText.Color(), RandomText.Name(), RandomText.Phone(),RandomText.Adjective(),"tag1"
+				},
+				AllTags = new List<string>
+				{
+					RandomText.Stuff(), RandomText.Color(), RandomText.Name(), RandomText.Phone(),RandomText.Adjective()
+				},
+				Status = RandomText.Verb(),
+				CreateTime = DateTime.UtcNow,
+				Pages = new List<GuidePageV1>
+				{
+					new GuidePageV1
+					{
+						Title = new Dictionary<string, string>
+						{
+							{IdGenerator.NextShort(), RandomText.Word()}, {IdGenerator.NextShort(), RandomText.Word()}
+						},
+						Content = new Dictionary<string, string>
+						{
+							{IdGenerator.NextShort(), RandomText.Word()}, {IdGenerator.NextShort(), RandomText.Word()}
+						},
+						Color = RandomText.Color(),
+						PicId = IdGenerator.NextShort(),
+						PicUri = IdGenerator.NextLong()
+					},
+					new GuidePageV1
+					{
+						Title = new Dictionary<string, string>
+						{
+							{IdGenerator.NextShort(), RandomText.Word()}, {IdGenerator.NextShort(), RandomText.Word()}
+						},
+						Content = new Dictionary<string, string>
+						{
+							{IdGenerator.NextShort(), RandomText.Word()}, {IdGenerator.NextShort(), RandomText.Word()}
+						},
+						Color = RandomText.Color(),
+						PicId = IdGenerator.NextShort(),
+						PicUri = IdGenerator.NextLong()
+					}
 
-		private GuidePageV1 GUIDEPAGE2 = new GuidePageV1
-		{
-			Title = new Dictionary<string, string>() { { "Page2Title1", "Some in title1" }, { "Page2Title2", "Some in title2" } },
-			Content = new Dictionary<string, string>() { { "Page2Content1", "Some in content1" }, { "Page2Content2", "Some in content2" } },
-			Color = "blue",
-			PicId = "2",
-			PicUri = "000002"
-		};
-
-		private GuidePageV1 GUIDEPAGE3 = new GuidePageV1
-		{
-			Title = new Dictionary<string, string>() { { "Page3Title1", "Some in title1" }, { "Page3Title2", "Some in title2" } },
-			Content = new Dictionary<string, string>() { { "Page3Content1", "Some in content1" }, { "Page3Content2", "Some in content2" } },
-			Color = "red",
-			PicId = "3",
-			PicUri = "000003"
-		};
-
-		private GuidePageV1 GUIDEPAGE4 = new GuidePageV1
-		{
-			Title = new Dictionary<string, string>() { { "Page4Title1", "Some in title1" }, { "Page4Title2", "Some in title2" } },
-			Content = new Dictionary<string, string>() { { "Page4Content1", "Some in content1" }, { "Page4Content2", "Some in content2" } },
-			Color = "black",
-			PicId = "4",
-			PicUri = "000004"
-		};
-
-		private GuideV1 GUIDE1 = new GuideV1
-		{
-			Id = "1",
-			Name = "TestGuide1",
-			Type = GuideTypeV1.Home,
-			App = "App1",
-			MinVer = 12,
-			MaxVer = 50,
-			Tags = new List<string> { "tag1", "tag2", "tag3" },
-			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
-			Status = "active",
-			CreateTime = DateTime.UtcNow,
-		};
-		private GuideV1 GUIDE2 = new GuideV1
-		{
-			Id = "2",
-			Name = "TestGuide2",
-			Type = GuideTypeV1.Introduction,
-			App = "App2",
-			MinVer = 5,
-			MaxVer = 11,
-			Tags = new List<string> { "tag1", "tag2", "tag3", "tag4" },
-			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
-			Status = "new",
-			CreateTime = DateTime.UtcNow,
-		};
-		private GuideV1 GUIDE3 = new GuideV1
-		{
-			Id = "3",
-			Name = "TestGuide3",
-			Type = GuideTypeV1.Introduction,
-			App = "App3",
-			MinVer = 11,
-			MaxVer = 14,
-			Tags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
-			AllTags = new List<string> { "tag1", "tag2", "tag3", "tag4", "tag5" },
-			Status = "new",
-			CreateTime = DateTime.UtcNow,
-		};
-
-		public TestModel()
-		{
-			GUIDE1.Pages = new List<GuidePageV1> { GUIDEPAGE1, GUIDEPAGE2 };
-
-			GUIDE3.Pages = new List<GuidePageV1> { GUIDEPAGE3, GUIDEPAGE4 };
-
+				}
+			};
 		}
 
-		public async Task<GuideV1> TestCreateGuidesAsync(Func<string, GuideV1, Task<GuideV1>> CreateAsync, string param = null)
+		private static string RandomGuideType()
 		{
-			// Create the first guide
-			var guide = await CreateAsync(param, GUIDE1);
-
-			AssertGuides(GUIDE1, guide);
-			AssertPages(GUIDEPAGE1, guide.Pages[0]);
-			AssertPages(GUIDEPAGE2, guide.Pages[1]);
-
-			// Create the second guide
-			guide = await CreateAsync(param, GUIDE2);
-			AssertGuides(GUIDE2, guide);
-
-			// Create the third guide
-			guide = await CreateAsync(param, GUIDE3);
-			AssertGuides(GUIDE3, guide);
-			AssertPages(GUIDEPAGE3, guide.Pages[0]);
-			AssertPages(GUIDEPAGE4, guide.Pages[1]);
-
-			return guide;
-
+			var num = RandomInteger.NextInteger(1, 3);
+			switch (num)
+			{
+				case 1:
+					return GuideTypeV1.Home;
+				case 2:
+					return GuideTypeV1.Introduction;
+				case 3:
+					return GuideTypeV1.NewRelease;
+				default:
+					return null;
+			}
 		}
 
-		public static void AssertGuides(GuideV1 expectedGuide, GuideV1 actualGuide)
+		public static void AssertEqual(GuideV1 expectedGuide, GuideV1 actualGuide)
 		{
 			Assert.NotNull(actualGuide);
 			Assert.Equal(expectedGuide.App, actualGuide.App);
@@ -125,13 +89,16 @@ namespace Wexxle.Guide.Data
 			Assert.Equal(expectedGuide.Name, actualGuide.Name);
 			Assert.Equal(expectedGuide.Status, actualGuide.Status);
 			Assert.Equal(expectedGuide.Type, actualGuide.Type);
-
-			if (expectedGuide.Pages == null)
-				Assert.Null(actualGuide.Pages);
-			else
-				Assert.NotNull(actualGuide.Pages);
+			Assert.NotNull(actualGuide.Pages);
+			for (int i = 0; i < actualGuide.Pages.Count; i++)
+				AssertPages(actualGuide.Pages[i], expectedGuide.Pages[i]);
 			Assert.NotNull(actualGuide.Tags);
+			for (int i = 0; i < actualGuide.Tags.Count; i++)
+				Assert.Equal(expectedGuide.Tags[i], actualGuide.Tags[i]);
 			Assert.NotNull(actualGuide.AllTags);
+			for (int i = 0; i < actualGuide.AllTags.Count; i++)
+				Assert.Equal(expectedGuide.AllTags[i], actualGuide.AllTags[i]);
+
 		}
 
 		public static void AssertPages(GuidePageV1 expectedPage, GuidePageV1 actualPage)

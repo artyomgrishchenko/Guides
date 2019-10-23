@@ -1,76 +1,102 @@
 ﻿using Wexxle.Guide.Data;
-using Wexxle.Guide.Data.Version1;
 using PipServices3.Commons.Data;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using PipServices3.Commons.Random;
 using Xunit;
 
 namespace Wexxle.Guide.Persistence
 {
     public class GuidesPersistenceFixture
     {
-		private IGuidesPersistence _persistence;
+		private readonly IGuidesPersistence _persistence;
 
         public GuidesPersistenceFixture(IGuidesPersistence persistence)
         {
 			_persistence = persistence;
         }
-
-        private async Task TestCreateGuidesAsync()
-		{
-			TestModel testModel = new TestModel();
-			await testModel.TestCreateGuidesAsync(_persistence.CreateAsync);
-		}
-
-		public async Task TestCrudOperationsAsync()
+        public async Task It_Should_Create_Guide()
         {
-            // Create items
-            await TestCreateGuidesAsync();
+	        // arrange 
+	        var guide = TestModel.CreateGuide();
 
-            // Get all guides
-            var page = await _persistence.GetPageByFilterAsync(
-                null,
-                new FilterParams(),
-                new PagingParams()
-            );
+	        // act
+	        var result = await _persistence.CreateAsync(null, guide);
 
-            Assert.NotNull(page);
-            Assert.Equal(3, page.Data.Count);
-
-            var guide1 = page.Data[0];
-
-            // Update the guide
-            guide1.Name = "ABCD";
-
-            var guide = await _persistence.UpdateAsync(null, guide1);
-
-            Assert.NotNull(guide);
-            Assert.Equal(guide1.Id, guide.Id);
-            Assert.Equal("ABCD", guide.Name);
-
-            // Delete the guide
-            guide = await _persistence.DeleteByIdAsync(null, guide1.Id);
-
-            Assert.NotNull(guide);
-            Assert.Equal(guide1.Id, guide.Id);
-
-            // Try to get deleted guide
-            guide = await _persistence.GetOneByIdAsync(null, guide1.Id);
-
-            Assert.Null(guide);
+	        // assert
+	        TestModel.AssertEqual(guide, result);
         }
 
-        public async Task TestGetWithFiltersAsync()
+        public async Task It_Should_Update_Guide()
         {
-            // Create items
-            await TestCreateGuidesAsync();
+	        // arrange
+	        var guide1 = await _persistence.CreateAsync(null, TestModel.CreateGuide());
 
-            // Filter by id
-            var page = await _persistence.GetPageByFilterAsync(
+	        // act
+	        guide1.Name = RandomText.Word();
+	        var result = await _persistence.UpdateAsync(null, guide1);
+
+	        // assert
+	        Assert.NotNull(result);
+	        TestModel.AssertEqual(guide1, result);
+        }
+
+        public async Task It_Should_Delete_Guide()
+        {
+	        // arrange 
+	        var guide = await _persistence.CreateAsync(null, TestModel.CreateGuide());
+
+	        // act
+	        var deletedGuide = await _persistence.DeleteByIdAsync(null, guide.Id);
+	        var result = await _persistence.GetOneByIdAsync(null, guide.Id);
+
+	        // assert
+	        TestModel.AssertEqual(guide, deletedGuide);
+	        Assert.Null(result);
+        }
+
+        public async Task It_Should_Get_Guide_By_Id()
+        {
+	        // arrange 
+	        var guide = await _persistence.CreateAsync(null, TestModel.CreateGuide());
+
+	        // act
+	        var result = await _persistence.GetOneByIdAsync(null, guide.Id);
+
+	        // assert
+	        TestModel.AssertEqual(guide, result);
+        }
+
+        public async Task It_Should_Get_All_Guides()
+        {
+	        // arrange 
+	        await _persistence.CreateAsync(null, TestModel.CreateGuide());
+	        await _persistence.CreateAsync(null, TestModel.CreateGuide());
+
+	        // act
+	        var page = await _persistence.GetPageByFilterAsync(
+		        null,
+		        new FilterParams(),
+		        new PagingParams()
+	        );
+
+	        // assert
+	        Assert.NotNull(page);
+	        Assert.Equal(2, page.Data.Count);
+        }
+
+		public async Task It_Should_Get_Guides_By_Filters()
+        {
+			// Create items
+			var guide1 = await _persistence.CreateAsync(null, TestModel.CreateGuide());
+			var guide2 = await _persistence.CreateAsync(null, TestModel.CreateGuide());
+			var guide3 = await _persistence.CreateAsync(null, TestModel.CreateGuide());
+
+
+			// Filter by id
+			var page = await _persistence.GetPageByFilterAsync(
                 null,
                 FilterParams.FromTuples(
-                    "id", "1"
+                    "id", guide1.Id
                 ),
                 new PagingParams()
             );
@@ -81,7 +107,7 @@ namespace Wexxle.Guide.Persistence
             page = await _persistence.GetPageByFilterAsync(
                 null,
                 FilterParams.FromTuples(
-                    "name", "TestGuide2"
+                    "name", guide2.Name
 				),
                 new PagingParams()
             );
@@ -92,7 +118,7 @@ namespace Wexxle.Guide.Persistence
             page = await _persistence.GetPageByFilterAsync(
                 null,
                 FilterParams.FromTuples(
-                    "tag", "tag1"
+                    "tag",  "tag1"
                 ),
                 new PagingParams()
             );
@@ -103,40 +129,32 @@ namespace Wexxle.Guide.Persistence
 			page = await _persistence.GetPageByFilterAsync(
 				null,
 				FilterParams.FromTuples(
-					"tag", "tag4"
-				),
-				new PagingParams()
-			);
-
-			Assert.Equal(2, page.Data.Count);
-
-			// Filter by tag
-			page = await _persistence.GetPageByFilterAsync(
-				null,
-				FilterParams.FromTuples(
-					"tag", "tag5"
+					"tag", guide3.Tags[1]
 				),
 				new PagingParams()
 			);
 
 			Assert.Single(page.Data);
 
+			int expTypes = 1;
+			if (guide3.Type == guide1.Type) expTypes++;
+			if (guide3.Type == guide2.Type) expTypes++;
 			// Filter by type
 			page = await _persistence.GetPageByFilterAsync(
                 null,
                 FilterParams.FromTuples(
-                    "type", "introduction"
+                    "type", guide3.Type
 				),
                 new PagingParams()
             );
 
-            Assert.Equal(2, page.Data.Count);
+            Assert.Equal(expTypes, page.Data.Count);
 
 			// Filter by app
 			page = await _persistence.GetPageByFilterAsync(
 				null,
 				FilterParams.FromTuples(
-					"app", "App2"
+					"app", guide1.App
 				),
 				new PagingParams()
 			);
@@ -147,7 +165,7 @@ namespace Wexxle.Guide.Persistence
 			page = await _persistence.GetPageByFilterAsync(
 				null,
 				FilterParams.FromTuples(
-					"ids", "2,3"
+					"ids", guide1.Id+","+guide2.Id+","+ "2,3"
 				),
 				new PagingParams()
 			);
@@ -158,8 +176,8 @@ namespace Wexxle.Guide.Persistence
 			page = await _persistence.GetPageByFilterAsync(
 				null,
 				FilterParams.FromTuples(
-					"ids", "2,3"
-				,	"tag", "tag5"
+					"ids", guide1.Id + "," + guide2.Id + "," + "2,3"
+				,	"tag", guide2.Tags[1]
 				),
 
 				new PagingParams()

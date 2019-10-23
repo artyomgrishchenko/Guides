@@ -8,7 +8,7 @@ namespace Wexxle.Guide.Build
 {
     public class GuidesServiceFactory : Factory
     {
-        public static Descriptor Descriptor = new Descriptor("wexxle-guides", "factory", "service", "default", "1.0");
+        //public static Descriptor Descriptor = new Descriptor("wexxle-guides", "factory", "service", "default", "1.0");
         public static Descriptor MemoryPersistenceDescriptor = new Descriptor("wexxle-guides", "persistence", "memory", "*", "1.0");
         public static Descriptor MongoDbPersistenceDescriptor = new Descriptor("wexxle-guides", "persistence", "mongodb", "*", "1.0");
         public static Descriptor ControllerDescriptor = new Descriptor("wexxle-guides", "controller", "default", "*", "1.0");

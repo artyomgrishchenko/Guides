@@ -31,7 +31,7 @@ namespace Wexxle.Guide.Clients.Version1
                 correlationId,
                 new
                 {
-                    guide_id = id
+                    id = id
                 }
             );
         }
@@ -79,7 +79,7 @@ namespace Wexxle.Guide.Clients.Version1
                 correlationId,
                 new
                 {
-                    guide_id = id
+                    id = id
                 }
             );
         }

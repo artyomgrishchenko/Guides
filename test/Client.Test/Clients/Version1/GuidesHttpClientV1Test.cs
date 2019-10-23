@@ -10,36 +10,34 @@ using Wexxle.Attachment.Client.Version1;
 
 namespace Wexxle.Guide.Clients.Version1
 {
-    public class GuidesHttpClientV1Test
-    {
+    public class GuidesHttpClientV1Test : IDisposable
+	{
         private static readonly ConfigParams HttpConfig = ConfigParams.FromTuples(
             "connection.protocol", "http",
             "connection.host", "localhost",
             "connection.port", 8080
         );
 
-        private GuidesMemoryPersistence _persistence;
-        private GuidesController _controller;
-        private GuidesHttpClientV1 _client;
-        private GuidesHttpServiceV1 _service;
-        private GuidesClientV1Fixture _fixture;
+        private readonly GuidesHttpClientV1 _client;
+        private readonly GuidesHttpServiceV1 _service;
+        private readonly GuidesClientV1Fixture _fixture;
 
         public GuidesHttpClientV1Test()
         {
-            _persistence = new GuidesMemoryPersistence();
-            _controller = new GuidesController();
+	        var persistence = new GuidesMemoryPersistence();
+            var controller = new GuidesController();
             _client = new GuidesHttpClientV1();
             _service = new GuidesHttpServiceV1();
 
             IReferences references = References.FromTuples(
-                new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), _persistence,
-                new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), _controller,
+                new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), persistence,
+                new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), controller,
                 new Descriptor("wexxle-guides", "client", "http", "default", "1.0"), _client,
                 new Descriptor("wexxle-guides", "service", "http", "default", "1.0"), _service,
 				new Descriptor("wexxle-attachments", "client", "null", "default", "1.0"), new AttachmentsNullClientV1()
 			);
 
-            _controller.SetReferences(references);
+            controller.SetReferences(references);
 
             _service.Configure(HttpConfig);
             _service.SetReferences(references);
@@ -52,11 +50,42 @@ namespace Wexxle.Guide.Clients.Version1
             _service.OpenAsync(null).Wait();
             _client.OpenAsync(null).Wait();
         }
+        public void Dispose()
+        {
+	        _client.CloseAsync(null).Wait();
+	        _service.CloseAsync(null).Wait();
+        }
+
+		[Fact]
+        public async Task It_Should_Create_Guide()
+        {
+	        await _fixture.It_Should_Create_Guide();
+        }
 
         [Fact]
-        public async Task TestCrudOperationsAsync()
+        public async Task It_Should_Delete_Guide()
         {
-            await _fixture.TestCrudOperationsAsync();
+	        await _fixture.It_Should_Delete_Guide();
         }
-    }
+
+        [Fact]
+        public async Task It_Should_Update_Guide()
+        {
+	        await _fixture.It_Should_Update_Guide();
+        }
+
+        [Fact]
+        public async Task It_Should_Get_Guide_By_Id()
+        {
+	        await _fixture.It_Should_Get_Guide_By_Id();
+        }
+
+        [Fact]
+        public async Task It_Should_Get_All_Guides()
+        {
+	        await _fixture.It_Should_Get_All_Guides();
+        }
+
+
+	}
 }

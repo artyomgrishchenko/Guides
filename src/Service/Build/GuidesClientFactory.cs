@@ -1,7 +1,6 @@
 ﻿using PipServices3.Commons.Refer;
 using PipServices3.Components.Build;
 using Wexxle.Guide.Clients.Version1;
-using Wexxle.Attachment.Client.Version1;
 
 namespace Wexxle.Guide.Build
 {

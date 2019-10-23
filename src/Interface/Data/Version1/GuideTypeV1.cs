@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wexxle.Guide.Data.Version1
+﻿namespace Wexxle.Guide.Data.Version1
 {
 	public static class GuideTypeV1
 	{

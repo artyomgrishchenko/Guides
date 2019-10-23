@@ -5,9 +5,7 @@ using PipServices3.Commons.Refer;
 using Wexxle.Guide.Persistence;
 using System.Threading.Tasks;
 using Wexxle.Guide.Data.Version1;
-using Wexxle.Guide.Logic;
 using System;
-using Wexxle.Guide.Logic;
 using Wexxle.Attachment.Client.Version1;
 using PipServices3.Components.Logic;
 

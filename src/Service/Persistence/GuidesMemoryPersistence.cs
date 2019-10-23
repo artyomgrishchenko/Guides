@@ -26,7 +26,7 @@ namespace Wexxle.Guide.Persistence
             var tag = filter.GetAsNullableString("tag");
 
 			var ids = filter.GetAsNullableString("ids");
-			var idsList = ids != null ? ids.Split(',') : null;
+			var idsList = ids?.Split(',');
 
 
 			return new List<Func<GuideV1, bool>>() {

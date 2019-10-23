@@ -3,13 +3,12 @@ using PipServices3.Commons.Commands;
 using PipServices3.Commons.Data;
 using PipServices3.Commons.Convert;
 using PipServices3.Commons.Validate;
-using System.Collections.Generic;
 
 namespace Wexxle.Guide.Logic
 {
     public class GuidesCommandSet : CommandSet
     {
-        private IGuidesController _controller;
+        private readonly IGuidesController _controller;
 
         public GuidesCommandSet(IGuidesController controller)
         {
@@ -42,10 +41,10 @@ namespace Wexxle.Guide.Logic
             return new Command(
                 "get_guide_by_id",
                 new ObjectSchema()
-                    .WithRequiredProperty("guide_id", TypeCode.String),
+                    .WithRequiredProperty("id", TypeCode.String),
                 async (correlationId, parameters) =>
                 {
-                    var id = parameters.GetAsString("guide_id");
+                    var id = parameters.GetAsString("id");
                     return await _controller.GetGuideByIdAsync(correlationId, id);
                 });
         }
@@ -81,10 +80,10 @@ namespace Wexxle.Guide.Logic
             return new Command(
                "delete_guide_by_id",
                new ObjectSchema()
-                   .WithRequiredProperty("guide_id", TypeCode.String),
+                   .WithRequiredProperty("id", TypeCode.String),
                async (correlationId, parameters) =>
                {
-                   var id = parameters.GetAsString("guide_id");
+                   var id = parameters.GetAsString("id");
                    return await _controller.DeleteGuideByIdAsync(correlationId, id);
                });
         }

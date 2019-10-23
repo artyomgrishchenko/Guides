@@ -1,6 +1,5 @@
 ﻿using PipServices3.Commons.Config;
 using PipServices3.Commons.Convert;
-using PipServices3.Commons.Data;
 using PipServices3.Commons.Refer;
 using System.Net.Http;
 using System.Text;
@@ -10,8 +9,7 @@ using Wexxle.Guide.Persistence;
 using Wexxle.Guide.Logic;
 using Wexxle.Guide.Data.Version1;
 using System.Threading;
-using System.Collections.Generic;
-using System;
+using PipServices3.Commons.Random;
 using Wexxle.Guide.Data;
 using Wexxle.Attachment.Client.Version1;
 
@@ -25,9 +23,9 @@ namespace Wexxle.Guide.Services.Version1
             "connection.port", "3000"
         );
 
-        private GuidesMemoryPersistence _persistence;
-        private GuidesController _controller;
-        private GuidesHttpServiceV1 _service;
+        private readonly GuidesMemoryPersistence _persistence;
+        private readonly GuidesController _controller;
+        private readonly GuidesHttpServiceV1 _service;
 
         public GuidesHttpServiceV1Test()
         {
@@ -51,55 +49,65 @@ namespace Wexxle.Guide.Services.Version1
             Thread.Sleep(1000); // Just let service a sec to be initialized
         }
 
-		async Task<GuideV1> CreateAsync(string route, GuideV1 item)
+		[Fact]
+		public async Task It_Should_Create_Guide()
 		{
-			return await Invoke<GuideV1>(route, new { guide = item });
+			// arrange 
+			var guide = TestModel.CreateGuide();
+
+			// act
+			var result = await Invoke<GuideV1>("create_guide", new { guide = guide });
+
+			// assert
+			TestModel.AssertEqual(guide, result);
 		}
 
+		[Fact]
+		public async Task It_Should_Update_Guide()
+		{
+			// arrange 
+			var guide = await Invoke<GuideV1>("create_guide", new { guide = TestModel.CreateGuide() });
+
+			// act
+			guide.Name = RandomText.Word();
+
+			var result = await Invoke<GuideV1>("update_guide", new { guide = guide });
+
+			// assert
+			TestModel.AssertEqual(guide, result);
+		}
 
 		[Fact]
-        public async Task TestCrudOperationsAsync()
-        {
-			TestModel testModel = new TestModel();
-			var guide = await testModel.TestCreateGuidesAsync(CreateAsync, "create_guide");
+		public async Task It_Should_Delete_Guide()
+		{
+			// arrange 
+			var guide = await Invoke<GuideV1>("create_guide", new { guide = TestModel.CreateGuide() });
 
-			// Get all guides
-			var page = await Invoke<DataPage<GuideV1>>(
-                "get_guides",
-                new
-                {
-                    filter = new FilterParams(),
-                    paging = new PagingParams()
-                }
-            );
+			// act
+			var deletedGuide = await Invoke<GuideV1>("delete_guide_by_id", new { id = guide.Id });
+			var result = await Invoke<GuideV1>("get_guide_by_id", new { id = guide.Id });
 
-            Assert.NotNull(page);
-            Assert.Equal(3, page.Data.Count);
+			// assert
+			TestModel.AssertEqual(guide, deletedGuide);
+			Assert.Null(result);
+		}
 
-            var guide1 = page.Data[0];
+		[Fact]
+		public async Task It_Should_Get_Guide_By_Id()
+		{
+			// arrange 
+			var guide = await Invoke<GuideV1>("create_guide", new { guide = TestModel.CreateGuide() });
 
-			// Update the guide
-			guide1.Name = "GuideName";
+			// act
+			var result = await Invoke<GuideV1>("get_guide_by_id", new { id = guide.Id });
 
-			guide = await Invoke<GuideV1>("update_guide", new { guide = guide1 });
+			
 
-			Assert.NotNull(guide);
-			Assert.Equal(guide1.Id, guide.Id);
-			Assert.Equal("GuideName", guide.Name);
+			// assert
+			TestModel.AssertEqual(guide, result);
+		}
 
-            // Delete the guide
-            guide = await Invoke<GuideV1>("delete_guide_by_id", new { guide_id = guide1.Id });
-
-            Assert.NotNull(guide);
-            Assert.Equal(guide1.Id, guide.Id);
-
-            // Try to get deleted guide
-            guide = await Invoke<GuideV1>("get_guide_by_id", new { guide_id = guide1.Id });
-
-            Assert.Null(guide);
-        }
-
-        private static async Task<T> Invoke<T>(string route, dynamic request)
+		private static async Task<T> Invoke<T>(string route, dynamic request)
         {
             using (var httpClient = new HttpClient())
             {

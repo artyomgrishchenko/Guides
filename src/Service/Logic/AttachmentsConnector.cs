@@ -1,7 +1,5 @@
 ﻿using Wexxle.Guide.Data.Version1;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Wexxle.Attachment.Client.Version1;
 using Wexxle.Attachment.Data.Version1;
@@ -33,7 +31,7 @@ namespace Wexxle.Guide.Logic
 			return ids.ToArray();
 		}
 
-		async public Task<BlobAttachmentV1[]> AddAttachmentsAsync(string correlationId, GuideV1 guide)
+		public async Task<BlobAttachmentV1[]> AddAttachmentsAsync(string correlationId, GuideV1 guide)
 		{
 			if (_attachmentsClient == null || guide == null)
 			{
@@ -45,7 +43,7 @@ namespace Wexxle.Guide.Logic
 			return await _attachmentsClient.AddAttachmentsAsync(correlationId, reference, ids);
 		}
 
-		async public Task<BlobAttachmentV1[]> UpdateAttachmentsAsync(string correlationId, GuideV1 oldGuide, GuideV1 newGuide)
+		public async Task<BlobAttachmentV1[]> UpdateAttachmentsAsync(string correlationId, GuideV1 oldGuide, GuideV1 newGuide)
 		{
 			if (_attachmentsClient == null || oldGuide == null || newGuide == null)
 			{
@@ -58,7 +56,7 @@ namespace Wexxle.Guide.Logic
 			return await _attachmentsClient.UpdateAttachmentsAsync(correlationId, reference, oldIds, newIds);
 		}
 
-		async public Task<BlobAttachmentV1[]> RemoveAttachmentsAsync(string correlationId, GuideV1 guide)
+		public async Task<BlobAttachmentV1[]> RemoveAttachmentsAsync(string correlationId, GuideV1 guide)
 		{
 			if (_attachmentsClient == null || guide == null)
 			{

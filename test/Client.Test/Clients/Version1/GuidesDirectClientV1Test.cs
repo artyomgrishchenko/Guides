@@ -1,49 +1,68 @@
-﻿using PipServices3.Commons.Config;
-using PipServices3.Commons.Refer;
+﻿using PipServices3.Commons.Refer;
 using System.Threading.Tasks;
 using Xunit;
 using Wexxle.Guide.Persistence;
 using Wexxle.Guide.Logic;
-using Wexxle.Guide.Services.Version1;
-using System;
 using Wexxle.Attachment.Client.Version1;
 
 namespace Wexxle.Guide.Clients.Version1
 {
     public class GuidesDirectClientV1Test
     {
-        private GuidesMemoryPersistence _persistence;
-        private GuidesController _controller;
-        private GuidesDirectClientV1 _client;
-        private GuidesClientV1Fixture _fixture;
+	    private readonly GuidesClientV1Fixture _fixture;
 
         public GuidesDirectClientV1Test()
         {
-            _persistence = new GuidesMemoryPersistence();
-            _controller = new GuidesController();
-            _client = new GuidesDirectClientV1();
+	        var persistence = new GuidesMemoryPersistence();
+            var controller = new GuidesController();
+            var client = new GuidesDirectClientV1();
 
             IReferences references = References.FromTuples(
-                new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), _persistence,
-                new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), _controller,
-                new Descriptor("wexxle-guides", "client", "direct", "default", "1.0"), _client,
+                new Descriptor("wexxle-guides", "persistence", "memory", "default", "1.0"), persistence,
+                new Descriptor("wexxle-guides", "controller", "default", "default", "1.0"), controller,
+                new Descriptor("wexxle-guides", "client", "direct", "default", "1.0"), client,
 				new Descriptor("wexxle-attachments", "client", "null", "default", "1.0"), new AttachmentsNullClientV1()
 			);
 
-            _controller.SetReferences(references);
+            controller.SetReferences(references);
 
-            _client.SetReferences(references);
+            client.SetReferences(references);
 
-            _fixture = new GuidesClientV1Fixture(_client);
+            _fixture = new GuidesClientV1Fixture(client);
 
-            _client.OpenAsync(null).Wait();
+            client.OpenAsync(null).Wait();
         }
 
         [Fact]
-        public async Task TestCrudOperationsAsync()
+        public async Task It_Should_Create_Guide()
         {
-            await _fixture.TestCrudOperationsAsync();
+	        await _fixture.It_Should_Create_Guide();
         }
 
-    }
+        [Fact]
+        public async Task It_Should_Delete_Guide()
+        {
+	        await _fixture.It_Should_Delete_Guide();
+        }
+
+        [Fact]
+        public async Task It_Should_Update_Guide()
+        {
+	        await _fixture.It_Should_Update_Guide();
+        }
+
+        [Fact]
+        public async Task It_Should_Get_Guide_By_Id()
+        {
+	        await _fixture.It_Should_Get_Guide_By_Id();
+        }
+
+        [Fact]
+        public async Task It_Should_Get_All_Guides()
+        {
+	        await _fixture.It_Should_Get_All_Guides();
+        }
+
+
+	}
 }

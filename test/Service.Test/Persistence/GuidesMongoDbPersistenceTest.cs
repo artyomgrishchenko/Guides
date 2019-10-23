@@ -8,9 +8,9 @@ namespace Wexxle.Guide.Persistence
 {
     public class GuidesMongoDbPersistenceTest : IDisposable
         {
-        private bool _enabled = false;
-        private GuidesMongoDbPersistence _persistence;
-        private GuidesPersistenceFixture _fixture;
+        private readonly bool _enabled = false;
+        private readonly GuidesMongoDbPersistence _persistence;
+        private readonly GuidesPersistenceFixture _fixture;
 
         public GuidesMongoDbPersistenceTest()
         {
@@ -49,18 +49,40 @@ namespace Wexxle.Guide.Persistence
         }
 
         [Fact]
-        public async Task TestCrudOperationsAsync()
+        public async Task It_Should_Create_Guide()
         {
-            if (_enabled)
-                await _fixture.TestCrudOperationsAsync();
+	        await _fixture.It_Should_Create_Guide();
         }
 
         [Fact]
-        public async Task TestGetWithFiltersAsync()
+        public async Task It_Should_Delete_Guide()
         {
-            if (_enabled)
-                await _fixture.TestGetWithFiltersAsync();
+	        await _fixture.It_Should_Delete_Guide();
         }
 
-    }
+        [Fact]
+        public async Task It_Should_Update_Guide()
+        {
+	        await _fixture.It_Should_Update_Guide();
+        }
+
+        [Fact]
+        public async Task It_Should_Get_Guide_By_Id()
+        {
+	        await _fixture.It_Should_Get_Guide_By_Id();
+        }
+
+        [Fact]
+        public async Task It_Should_Get_All_Guides()
+        {
+	        await _fixture.It_Should_Get_All_Guides();
+        }
+
+        [Fact]
+        public async Task It_Should_Get_Guides_By_Filters()
+        {
+	        await _fixture.It_Should_Get_Guides_By_Filters();
+        }
+
+	}
 }
